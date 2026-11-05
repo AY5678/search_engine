@@ -1,7 +1,7 @@
 #content_generator.py
 
 import os
-from helpers import load_json, get_text_content
+from helpers import load_json, get_text_content, tokenize, stem
 
 class content_generator:
     """
@@ -20,7 +20,8 @@ class content_generator:
     def generate_next_content(self) -> tuple[int, str]:
         """
         Generates a tuple with the first object representing the document_id
-        and the second representing the parsed HTML content of the document
+        and the second representing the parsed HTML content of the document after
+        it has been tokenized and stemmed
         """
 
         #Process each folder in DEV and each file in those folders
@@ -37,5 +38,10 @@ class content_generator:
                     #Increment the document_id
                     self.document_id += 1
 
+                    #Get the tokenized and stemmed content
+                    content = get_text_content(raw_HTML, encoding)
+                    content = tokenize(content)
+                    content = stem(content)
+
                     #Return both the document id and text content
-                    yield self.document_id, get_text_content(raw_HTML, encoding)
+                    yield self.document_id, content
