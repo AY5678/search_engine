@@ -1,4 +1,4 @@
-#inverted_index.py
+#inverted_indexer.py
 
 import json
 from collections import Counter
@@ -41,7 +41,14 @@ class InvertedIndexer:
         """
 
         with open(file_path, "w", encoding = "utf-8") as file:
-            for word, frequencies in self.inverted_index.items():
+
+            #Create an entry for each word and document frequency list pairing
+            for word in sorted(self.inverted_index):
+                frequencies = self.inverted_index[word]
+
                 document_frequencies = {"word" : word, "frequencies" : frequencies}
 
+                #Add the new entry to its corresponding json entry
                 file.write(json.dumps(document_frequencies) + '\n')
+
+            self.inverted_index = {}

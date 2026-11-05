@@ -17,7 +17,7 @@ class ContentGenerator:
         #The id starts at 0 because it is incremented before each return
         self.document_id = 0
 
-    def generate_next_content(self) -> tuple[int, str]:
+    def generate_next_content(self):
         """
         Generates a tuple with the first object representing the document_id
         and the second representing the parsed HTML content of the document after
@@ -31,15 +31,14 @@ class ContentGenerator:
                     #Get the raw json
                     raw_json = load_json(file)
 
-                    #Get the raw HTML and the encoding
+                    #Get the raw HTML
                     raw_HTML = raw_json["content"]
-                    encoding = raw_json["encoding"]
 
                     #Increment the document_id
                     self.document_id += 1
 
                     #Get the tokenized and stemmed content
-                    content = get_text_content(raw_HTML, encoding)
+                    content = get_text_content(raw_HTML)
                     content = tokenize(content)
                     content = stem(content)
 

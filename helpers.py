@@ -4,25 +4,32 @@
 
 import json
 import re
+import glob
+import heapq
+import os
+from itertools import groupby
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
+
+#Create a stemmer for stemming
+stemmer = PorterStemmer()
 
 def load_json(file_path):
     """
     Given the json file path, returns the loaded json
     """
 
-    with open(file_path) as file:
+    with open(file_path, encoding = "utf-8") as file:
         data = json.load(file)
 
         return data
 
-def get_text_content(raw_HTML, encoding):
+def get_text_content(raw_HTML):
     """
-    Given a raw_HTML, returns the content using the given encoding
+    Given a raw_HTML, returns the string content
     """
 
-    soup = BeautifulSoup(raw_HTML, "html.parser", from_encoding = encoding)
+    soup = BeautifulSoup(raw_HTML, "html.parser")
 
     #Remove the script and style elements
     for element in soup(["script", "style"]):
@@ -48,9 +55,48 @@ def tokenize(text):
 def stem(words):
     """
     Given a list of words, returns the stemmed version of each
-    word using Porter stemming
+    word using the current stemmer
     """
 
-    stemmer = PorterStemmer()
-
     return [stemmer.stem(word) for word in words]
+
+def _read_single_line(file_path):
+    """
+    Generates the next line of entry and frequencies pairing for the given file path
+    """
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        for line in file:
+            entry = json.loads(line)
+            yield entry["word"], entry["frequencies"]
+
+
+def merge_batches(directory_path):
+
+    """
+    Searches the given directory path to merge all batches matching a specific format
+    """
+
+    #Get all the batch_files
+    batches = glob.glob(os.path.join(directory_path, "batch*_index.jsonl"))
+
+    #Merge all sorted batch files by word
+    merged = heapq.merge(*(_read_single_line(path) for path in batches), 
+    key=lambda entry: entry[0])
+
+    with open("inverted_index.jsonl", "w", encoding="utf-8") as output:
+
+        #Group entries that have the same word
+        for word, entries in groupby(merged, key=lambda entry: entry[0]):
+
+            frequencies = []
+
+            #Combine the document-frequency lists
+            for _, document_frequencies in entries:
+                frequencies.extend(document_frequencies)
+
+            #Get the combined entry
+            entry = {"word": word, "frequencies": frequencies}
+
+            #Write the combined entry
+            output.write(json.dumps(entry) + "\n")
