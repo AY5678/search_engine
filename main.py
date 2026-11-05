@@ -14,7 +14,7 @@ def main():
     #Create the generator
     generator = contenter.generate_next_content()
 
-    print(tokenize(next(generator)[1]))
+    print(stem(tokenize(next(generator)[1])))
 
 #Safety check
 if __name__ == "__main__":

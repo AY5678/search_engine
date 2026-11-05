@@ -4,6 +4,7 @@
 
 import json
 import re
+from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 
 def append_to_jsonl(file_path, content):
@@ -50,5 +51,15 @@ def tokenize(text):
     #Put all text in lowercase format while preserving apostrophes
     text = text.lower().replace("’", "'")
 
-    #Return the tokenized version only using ASCII lowercase letters and digits
-    return re.findall(r"[a-z0-9]+(?:'[a-z]+)?", text)
+    #Return the tokenized version only using alphanumeric characters
+    return re.findall(r"[^\W_]+(?:'[^\W_]+)?", text)
+
+def stem(words):
+    """
+    Given a list of words, returns the stemmed version of each
+    word using Porter stemming
+    """
+
+    stemmer = PorterStemmer()
+
+    return [stemmer.stem(word) for word in words]
