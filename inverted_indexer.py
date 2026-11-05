@@ -1,6 +1,6 @@
 #inverted_index.py
 
-from helpers import append_to_jsonl
+import json
 from collections import Counter
 
 class InvertedIndexer:
@@ -34,3 +34,14 @@ class InvertedIndexer:
             #If the word isn't in the index, then add a blank row
             self.inverted_index.setdefault(word, []).append(
                 {"document_id": document_id,"frequency": frequency})
+
+    def upload_index(self, file_path):
+        """
+        Uploads the current index to the given file path
+        """
+
+        with open(file_path, "w", encoding = "utf-8") as file:
+            for word, frequencies in self.inverted_index.items():
+                pair = {"word" : word, "frequencies" : frequencies}
+
+                file.write(json.dumps(entry) + '\n')

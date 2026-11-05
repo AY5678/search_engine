@@ -7,15 +7,6 @@ import re
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 
-def append_to_jsonl(file_path, content):
-    """
-    Takes in the file path as the jsonl location and then appends
-    the given content to the end of the jsonl
-    """
-
-    with open(file_path, 'a') as file:
-        file.write(json.dumps(content) + '\n')
-
 def load_json(file_path):
     """
     Given the json file path, returns the loaded json
