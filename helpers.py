@@ -7,9 +7,11 @@ import re
 import glob
 import heapq
 import os
+import time
 from itertools import groupby
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
+from functools import wraps
 
 #Create a stemmer for stemming
 stemmer = PorterStemmer()
@@ -100,3 +102,29 @@ def merge_batches(directory_path):
 
             #Write the combined entry
             output.write(json.dumps(entry) + "\n")
+
+def time_decorator(func):
+    """
+    Serves as a wrapper function that when will record the time elapsed in milliseconds
+    from running the given function
+
+    As of milestone one, this function is unused and will be helpful later
+    on for measuring the time of search queries
+    """
+
+    @wraps(func)
+    def time_wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+
+        result = func(*args, **kwargs)
+
+        end_time = time.perf_counter()
+
+        #Get the elapsed time in milliseconds
+        elapsed_time = (end_time - start_time) * 1000
+
+        print(f"Elapsed Time: {elapsed_time:.2f} milliseconds")
+
+        return result
+    
+    return time_wrapper
