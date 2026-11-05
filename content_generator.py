@@ -1,7 +1,7 @@
 #content_generator.py
 
 import os
-from helpers import *
+from helpers import load_json, get_text_content
 
 class content_generator:
     """
@@ -37,4 +37,5 @@ class content_generator:
                     #Increment the document_id
                     self.document_id += 1
 
+                    #Return both the document id and text content
                     yield self.document_id, get_text_content(raw_HTML, encoding)

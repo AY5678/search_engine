@@ -1,6 +1,7 @@
 #main.py
 
 from content_generator import content_generator
+from helpers import *
 
 def main():
     """
@@ -13,10 +14,7 @@ def main():
     #Create the generator
     generator = contenter.generate_next_content()
 
-    for i in range(5):
-        print(next(generator))
-
-
+    print(tokenize(next(generator)[1]))
 
 #Safety check
 if __name__ == "__main__":

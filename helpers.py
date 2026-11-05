@@ -3,6 +3,7 @@
 #This file contains various helper functions that are used throughout the program
 
 import json
+import re
 from bs4 import BeautifulSoup
 
 def append_to_jsonl(file_path, content):
@@ -40,3 +41,14 @@ def get_text_content(raw_HTML, encoding):
 
     #Return the content in readable format
     return " ".join(content.split())
+
+def tokenize(text):
+    """
+    Given some text, tokenizes it and returns it
+    """
+
+    #Put all text in lowercase format while preserving apostrophes
+    text = text.lower().replace("’", "'")
+
+    #Return the tokenized version only using ASCII lowercase letters and digits
+    return re.findall(r"[a-z0-9]+(?:'[a-z]+)?", text)
