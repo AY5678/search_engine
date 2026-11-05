@@ -42,6 +42,6 @@ class InvertedIndexer:
 
         with open(file_path, "w", encoding = "utf-8") as file:
             for word, frequencies in self.inverted_index.items():
-                pair = {"word" : word, "frequencies" : frequencies}
+                document_frequencies = {"word" : word, "frequencies" : frequencies}
 
-                file.write(json.dumps(entry) + '\n')
+                file.write(json.dumps(document_frequencies) + '\n')
