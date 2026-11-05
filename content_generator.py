@@ -3,7 +3,7 @@
 import os
 from helpers import load_json, get_text_content, tokenize, stem
 
-class content_generator:
+class ContentGenerator:
     """
     This is a class for providing documents from the DEV folder one at a time
     """
