@@ -10,7 +10,7 @@ from helpers import *
 #Sets the maximum number of documents parsed through before the current index is uploaded
 BATCH_SIZE = 500
 
-
+@time_decorator
 def main():
     """
     Main function for running the terminal interaction and interface
@@ -26,10 +26,10 @@ def main():
     indexer = InvertedIndexer()
 
     #Count the current batch number
-    batch_number = 0
+    batch_number = 1
 
+    #Use a temporary directory for storing the batch indices
     with tempfile.TemporaryDirectory() as batches:
-
 
         while True:
 
@@ -50,11 +50,14 @@ def main():
             #Save the index
             indexer.upload_index(file_path)
 
+            #Optionally print out batch number for testing
+            print(f"Finished batch {batch_number}")
+
             #Increment the batch number
             batch_number += 1
 
         #Combine the indexes
-        merge_indexes(batches)
+        merge_batches(batches)
 
 
 #Safety check

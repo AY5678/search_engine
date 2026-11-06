@@ -1,3 +1,5 @@
 **.zip
 ANALYST/
 DEV/
+**.jsonl
+__pycache__/
