@@ -17,7 +17,7 @@ class ContentGenerator:
         #The id starts at 0 because it is incremented before each return
         self.document_id = 0
 
-    def generate_next_content(self):
+    def generate_next_content(self, folder_name):
         """
         Generates a tuple with the first object representing the document_id
         and the second representing the parsed HTML content of the document after
@@ -25,22 +25,22 @@ class ContentGenerator:
         """
 
         #Process each folder in DEV and each file in those folders
-        for folder in os.scandir("DEV"):
-                for file in os.scandir(folder.path):
+        for folder in os.scandir(folder_name):
+                if folder.is_dir():
+                    for file in os.scandir(folder.path):
+                        #Get the raw json
+                        raw_json = load_json(file)
 
-                    #Get the raw json
-                    raw_json = load_json(file)
+                        #Get the raw HTML
+                        raw_HTML = raw_json["content"]
 
-                    #Get the raw HTML
-                    raw_HTML = raw_json["content"]
+                        #Increment the document_id
+                        self.document_id += 1
 
-                    #Increment the document_id
-                    self.document_id += 1
+                        #Get the tokenized and stemmed content
+                        content = get_text_content(raw_HTML)
+                        content = tokenize(content)
+                        content = stem(content)
 
-                    #Get the tokenized and stemmed content
-                    content = get_text_content(raw_HTML)
-                    content = tokenize(content)
-                    content = stem(content)
-
-                    #Return both the document id and text content
-                    yield self.document_id, content
+                        #Return both the document id and text content
+                        yield self.document_id, content

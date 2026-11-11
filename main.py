@@ -11,7 +11,7 @@ from helpers import *
 BATCH_SIZE = 500
 
 @time_decorator
-def main():
+def create_index_json():
     """
     Main function for running the terminal interaction and interface
     """
@@ -20,7 +20,7 @@ def main():
     contenter = ContentGenerator()
 
     #Create the generator
-    generator = contenter.generate_next_content()
+    generator = contenter.generate_next_content("DEV")
 
     #Create the indexer
     indexer = InvertedIndexer()
@@ -62,4 +62,4 @@ def main():
 
 #Safety check
 if __name__ == "__main__":
-    main()
+    create_index_json()
