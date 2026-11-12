@@ -58,7 +58,7 @@ def create_index_json():
 
         #Combine the indexes
         merge_batches(batches)
-        write_json(json.dumps([ url for url in contenter.document_list],'document_id.json'))
+        write_json(json.dumps([ url for url in contenter.document_list]),'document_id.json')
 
 
 #Safety check

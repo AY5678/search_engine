@@ -33,7 +33,6 @@ class ContentGenerator:
                         raw_HTML = raw_json["content"]
 
                         #Increment the document_id
-                        document_id += 1
                         self.document_list.append(raw_json["url"])
                         #Get the tokenized and stemmed content
                         content = get_text_content(raw_HTML)
@@ -42,3 +41,4 @@ class ContentGenerator:
 
                         #Return both the document id and text content
                         yield document_id, content
+                        document_id += 1

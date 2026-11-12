@@ -4,3 +4,4 @@ DEV/
 *.json*
 __pycache__/
 *agents.md
+*.ipynb
