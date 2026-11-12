@@ -12,9 +12,18 @@ from itertools import groupby
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 from functools import wraps
+from collections import namedtuple
+
+
+Entry = namedtuple('Entry',['word','frequencies'])
 
 #Create a stemmer for stemming
 stemmer = PorterStemmer()
+
+def write_json(data, file_path):
+    """ Writes data to file_path """
+    with open(file_path,encoding = "utf-8", mode='w') as file:
+        file.write(data)
 
 def load_json(file_path):
     """
@@ -70,7 +79,7 @@ def _read_single_line(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
             entry = json.loads(line)
-            yield entry["word"], entry["frequencies"]
+            yield Entry(entry["word"], entry["frequencies"])
 
 
 def merge_batches(directory_path):
@@ -84,12 +93,12 @@ def merge_batches(directory_path):
 
     #Merge all sorted batch files by word
     merged = heapq.merge(*(_read_single_line(path) for path in batches), 
-    key=lambda entry: entry[0])
+    key=lambda entry: entry.word)
 
     with open("inverted_index.jsonl", "w", encoding="utf-8") as output:
 
         #Group entries that have the same word
-        for word, entries in groupby(merged, key=lambda entry: entry[0]):
+        for word, entries in groupby(merged, key=lambda entry: entry.word):
 
             frequencies = []
 

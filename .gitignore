@@ -1,8 +1,6 @@
 **.zip
 ANALYST/
 DEV/
-**/*.jsonl
 *.json*
 __pycache__/
-inverted_index.jsonl
-inverted_index.jsonl
+*agents.md

@@ -13,9 +13,7 @@ class ContentGenerator:
         Initalize starting attributes
         """
 
-        #Start with a document id of 0 that will increase for each document looked at
-        #The id starts at 0 because it is incremented before each return
-        self.document_id = 0
+        self.document_list = []
 
     def generate_next_content(self, folder_name):
         """
@@ -23,7 +21,7 @@ class ContentGenerator:
         and the second representing the parsed HTML content of the document after
         it has been tokenized and stemmed
         """
-
+        document_id = 0
         #Process each folder in DEV and each file in those folders
         for folder in os.scandir(folder_name):
                 if folder.is_dir():
@@ -35,12 +33,12 @@ class ContentGenerator:
                         raw_HTML = raw_json["content"]
 
                         #Increment the document_id
-                        self.document_id += 1
-
+                        document_id += 1
+                        self.document_list.append(raw_json["url"])
                         #Get the tokenized and stemmed content
                         content = get_text_content(raw_HTML)
                         content = tokenize(content)
                         content = stem(content)
 
                         #Return both the document id and text content
-                        yield self.document_id, content
+                        yield document_id, content

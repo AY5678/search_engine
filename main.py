@@ -58,6 +58,8 @@ def create_index_json():
 
         #Combine the indexes
         merge_batches(batches)
+        array_json = json.dumps([ url for url in contenter.document_list],file_path="document_id.json")
+
 
 
 #Safety check
