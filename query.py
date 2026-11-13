@@ -1,6 +1,11 @@
 import helpers as hp
 import json
+from collections import namedtuple
+import math
+import heapq as hq
+from helpers import *
 
+Posting = namedtuple("Posting", ['document_id','tf_score','frequency'])
 
 # gets all similar documents by searching for token and returning all relevant document_ids. 
 def _get_document_frequencies(tokens):
@@ -8,21 +13,14 @@ def _get_document_frequencies(tokens):
     Takes a list of tokens, and finds all documents relating to it.
     Returns a list of sets, each set containing document_ids relating to a token.
     """
-    #id_frequency_list = []
-    id_list = []
-    tokens_set = set(tokens)
+    tokens_set = {tkn:[] for tkn in tokens}
     with open("inverted_index.jsonl") as file:
-            for line in file:
-                entry = json.loads(line)
-                if entry['word'] in tokens_set:
-                    #id_with_freq = []
-                    doc_id = set()
-                    for posting in entry["frequencies"]:
-                        doc_id.add(posting['document_id'])
-                        #id_frequency_list.extend((posting['document_id'],posting['frequency']))
-                    id_list.append(doc_id)
-                    tokens_set.remove(entry['word'])
-    return id_list if not tokens_set else []
+        for line in file:
+            entry = json.loads(line)
+            if entry['word'] in tokens_set:
+                for posting in entry["documents"]:
+                    tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
+    return tokens_set
 
 def _similar_document_ids(tokens):
     """
@@ -30,32 +28,38 @@ def _similar_document_ids(tokens):
     Returns a list of all document_ids which have all tokens.
     """
 
-    documents_list = _get_document_frequencies(tokens)
-    if not documents_list:
+    tokens_set = _get_document_frequencies(tokens)
+    if not tokens_set:
         return []
-    
-    doc_ids = set()
-    for doc_set in documents_list:
-        doc_ids.update(doc_set)
-    res = []
+    documents_score= {}
+    for _, documents in tokens_set.items():
+        if  len(documents)> 0:
+            df = NUMBER_OF_DOCUMENTS/len(documents)
+            idf = math.log(df)
+        else:
+            idf = 0
+        for posting in documents:
+            tf_score = posting.frequency if posting.frequency > 0 else 0
+            document_id =  posting.document_id
+            if document_id not in documents_score:
+                documents_score[document_id] = 0 
+            weight = (1+ math.log(tf_score)) * idf
+            documents_score[document_id] +=weight
 
-    # AND SEARCH
-    for doc_id in doc_ids:
-        and_search = True
-        for doc_set in documents_list:
-            if doc_id not in doc_set:
-                and_search = False
-                break
-        if and_search:
-            res.append(doc_id)
-    return res
+    # Number of results we want to show
+    k = 5
+    return hq.nlargest(k, documents_score, key=documents_score.get)
 
-
+@time_decorator
 def get_urls(tokens):
+    '''
+    gets the relevant document_ids' urls.
+    '''
     urls = []
     for doc_id in _similar_document_ids(tokens):
         urls.append(DOCUMENT_IDS[doc_id])
     return urls
+
 def run():
     while True:
         query = input("Please enter your query: ")
@@ -75,4 +79,7 @@ def run():
 
 if __name__ == '__main__':
     DOCUMENT_IDS = hp.load_json("document_id.json")
+    NUMBER_OF_DOCUMENTS = 0
+    with open('stats.json', 'r') as f:
+        NUMBER_OF_DOCUMENTS = int(f.read().strip().split()[-1])
     run()

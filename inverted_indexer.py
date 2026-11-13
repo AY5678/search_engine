@@ -27,7 +27,7 @@ class InvertedIndexer:
 
         #Total the count of each word
         word_counts = Counter(words)
-        n = sum(Counter.values())
+        n = word_counts.total()
         #Process each frequency counted for each word
         for word, freq in word_counts.items():
             # calculates tf_score for each document. 
@@ -45,9 +45,9 @@ class InvertedIndexer:
 
             #Create an entry for each word and document frequency list pairing
             for word in sorted(self.inverted_index):
-                frequencies = self.inverted_index[word]
+                documents_info = self.inverted_index[word]
 
-                document_frequencies = {"word" : word, "frequencies" : frequencies}
+                document_frequencies = {"word" : word, "documents" : documents_info}
 
                 #Add the new entry to its corresponding json entry
                 file.write(json.dumps(document_frequencies) + '\n')

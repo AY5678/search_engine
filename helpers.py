@@ -12,10 +12,6 @@ from itertools import groupby
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 from functools import wraps
-from collections import namedtuple
-
-
-Entry = namedtuple('Entry',['word','frequencies'])
 
 #Create a stemmer for stemming
 stemmer = PorterStemmer()
@@ -79,7 +75,7 @@ def _read_single_line(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
             entry = json.loads(line)
-            yield Entry(entry["word"], entry["frequencies"])
+            yield entry["word"], entry["documents"]
 
 
 def merge_batches(directory_path):
@@ -92,22 +88,23 @@ def merge_batches(directory_path):
     batches = glob.glob(os.path.join(directory_path, "batch*_index.jsonl"))
 
     #Merge all sorted batch files by word
+    #entry[0] == word
     merged = heapq.merge(*(_read_single_line(path) for path in batches), 
-    key=lambda entry: entry.word)
+    key=lambda entry: entry[0])
 
     with open("inverted_index.jsonl", "w", encoding="utf-8") as output:
 
         #Group entries that have the same word
-        for word, entries in groupby(merged, key=lambda entry: entry.word):
+        for word, entries in groupby(merged, key=lambda entry: entry[0]):
 
             frequencies = []
 
             #Combine the document-frequency lists
-            for _, document_frequencies in entries:
-                frequencies.extend(document_frequencies)
+            for _, documents in entries:
+                frequencies.extend(documents)
 
             #Get the combined entry
-            entry = {"word": word, "frequencies": frequencies}
+            entry = {"word": word, "documents": frequencies}
 
             #Write the combined entry
             output.write(json.dumps(entry) + "\n")
