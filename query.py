@@ -15,8 +15,7 @@ def _get_document_frequencies(tokens):
     """
 
     tokens_set = {tkn:[] for tkn in tokens}
-    with open("inverted_index.jsonl") as file:
-        # is there any faster way to traverse this? maybe sort the words...
+    with open(INVERTED_INDEX_FILE) as file:
         for line in file:
             entry = json.loads(line)
             if entry['word'] in tokens_set:
@@ -90,8 +89,8 @@ def run():
         print("Thank you!")
 
 if __name__ == '__main__':
-    DOCUMENT_IDS = hp.load_json("document_id.json")
+    DOCUMENT_IDS = hp.load_json(DOC_ID_FILE)
     NUMBER_OF_DOCUMENTS = 0
-    with open('stats.json', 'r') as f:
+    with open(STATS_FILE, 'r') as f:
         NUMBER_OF_DOCUMENTS = int(f.read().strip().split()[-1])
     run()

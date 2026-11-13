@@ -9,9 +9,6 @@ from helpers import *
 
 #Sets the maximum number of documents parsed through before the current index is uploaded
 BATCH_SIZE = 500
-URL_FILE = "document_id.json"
-STATS_FILE = "stats.json"
-INVERTED_INDEX_FILE = "inverted_index.jsonl"
 
 @time_decorator
 def create_index_json():
@@ -62,8 +59,8 @@ def create_index_json():
 
         #Combine the indexes
         merge_batches(batches)
-        write_json(json.dumps([url for url in contenter.document_list]), "document_id.json")
-        write_json(f"Total no of documents: {total_no_documents}", "stats.json")
+        write_json(json.dumps([url for url in contenter.document_list]), DOC_ID_FILE)
+        write_json(f"Total no of documents: {total_no_documents}", STATS_FILE)
 
 
 #Safety check

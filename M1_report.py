@@ -4,6 +4,7 @@
 
 import json
 import os
+from helpers import INVERTED_INDEX_FILE
 
 def get_diagnostics(file_path):
     """
@@ -18,7 +19,7 @@ def get_diagnostics(file_path):
             entry = json.loads(line)
             unique_words += 1
 
-            for posting in entry["frequencies"]:
+            for posting in entry["documents"]:
                 document_ids.add(posting["document_id"])
 
     file_size = os.path.getsize(file_path)
@@ -28,4 +29,4 @@ def get_diagnostics(file_path):
     print(f"Index size: {file_size / 1024 :.2f} KB")
 
 if __name__ == "__main__":
-    get_diagnostics("inverted_index.jsonl")
+    get_diagnostics(INVERTED_INDEX_FILE)

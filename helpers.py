@@ -13,6 +13,10 @@ from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 from functools import wraps
 
+DOC_ID_FILE = "document_id.json"
+STATS_FILE = "stats.json"
+INVERTED_INDEX_FILE = "inverted_index.jsonl"
+
 #Create a stemmer for stemming
 stemmer = PorterStemmer()
 
