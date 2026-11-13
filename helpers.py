@@ -18,6 +18,7 @@ stemmer = PorterStemmer()
 
 def write_json(data, file_path):
     """ Writes data to file_path """
+    
     with open(file_path,encoding = "utf-8", mode='w') as file:
         file.write(data)
 
