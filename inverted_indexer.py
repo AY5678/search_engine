@@ -27,13 +27,14 @@ class InvertedIndexer:
 
         #Total the count of each word
         word_counts = Counter(words)
-
+        n = sum(Counter.values())
         #Process each frequency counted for each word
-        for word, frequency in word_counts.items():
-
+        for word, freq in word_counts.items():
+            # calculates tf_score for each document. 
+            tf_score = freq/n
             #If the word isn't in the index, then add a blank row
             self.inverted_index.setdefault(word, []).append(
-                {"document_id": document_id,"frequency": frequency})
+                {"document_id": document_id, "tf_score": tf_score, "frequency" : freq})
 
     def upload_index(self, file_path):
         """
