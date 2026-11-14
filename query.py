@@ -4,6 +4,7 @@ from collections import namedtuple
 import math
 import heapq as hq
 from helpers import *
+from build_query_offset import word_offset_dict
 
 Posting = namedtuple("Posting", ['document_id','tf_score','frequency'])
 
@@ -15,12 +16,14 @@ def _get_document_frequencies(tokens):
     """
 
     tokens_set = {tkn:[] for tkn in tokens}
-    with open(INVERTED_INDEX_FILE) as file:
-        for line in file:
-            entry = json.loads(line)
-            if entry['word'] in tokens_set:
-                for posting in entry["documents"]:
-                    tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
+    for tkn in tokens_set:
+        with open(INVERTED_INDEX_FILE,'rb') as file:
+            if tkn not in word_offset_dict:
+                continue
+            file.seek(word_offset_dict[tkn])
+            entry = json.loads(file.readline())
+            for posting in entry["documents"]:
+                tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
 
     return tokens_set
 
