@@ -17,13 +17,12 @@ def _get_document_frequencies(tokens):
 
     tokens_set = {tkn:[] for tkn in tokens}
     for tkn in tokens_set:
-        with open(INVERTED_INDEX_FILE,'rb') as file:
-            if tkn not in word_offset_dict:
-                continue
-            file.seek(word_offset_dict[tkn])
-            entry = json.loads(file.readline())
-            for posting in entry["documents"]:
-                tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
+        if tkn not in word_offset_dict:
+            continue
+        inverted_file.seek(word_offset_dict[tkn])
+        entry = json.loads(inverted_file.readline())
+        for posting in entry["documents"]:
+            tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
 
     return tokens_set
 
@@ -77,7 +76,8 @@ def run():
         # Get user query
         query = input("Please enter your query: ")
         tokens = hp.stem(hp.tokenize(query))
-
+        if query.strip().lower() == 'exit':
+            break
         # Get URLs
         print("Related URL's")
         urls = get_urls(tokens)
@@ -96,4 +96,6 @@ if __name__ == '__main__':
     NUMBER_OF_DOCUMENTS = 0
     with open(STATS_FILE, 'r') as f:
         NUMBER_OF_DOCUMENTS = int(f.read().strip().split()[-1])
+    inverted_file = open(INVERTED_INDEX_FILE,'rb') 
     run()
+    inverted_file.close()
