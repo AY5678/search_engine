@@ -1,0 +1,186 @@
+# This is before pagerank, hits or anything except tf-idf is ran. 
+
+-cristina lopes
+Elapsed Time: 1.65 milliseconds
+https://www.ics.uci.edu/~hsajnani/
+http://mondego.ics.uci.edu/
+https://www.informatics.uci.edu/explore/facts-figures/
+https://www.informatics.uci.edu/explore/facts-figures/#content
+https://www.ics.uci.edu/~sjavanma/
+
+-alberto krone martins
+Elapsed Time: 1.25 milliseconds
+https://www.ics.uci.edu/~kay/courses/31/hw/lab2.html
+https://www.ics.uci.edu/~kay/wordlist.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://ngs.ics.uci.edu/list-of-publications/
+-thomas yeh
+Elapsed Time: 2.61 milliseconds
+https://www.ics.uci.edu/~eppstein/pubs/pubs.ff
+https://www.informatics.uci.edu/women-in-information-and-computer-sciences-wics-organization-mentors-and-supports-future-tech-professionals/#content
+https://www.informatics.uci.edu/women-in-information-and-computer-sciences-wics-organization-mentors-and-supports-future-tech-professionals/
+https://www.cs.uci.edu/women-in-information-and-computer-sciences-wics-organization-mentors-and-supports-future-tech-professionals/
+https://www.ics.uci.edu/community/news/view_news?id=1299
+-richard pattis
+Elapsed Time: 3.79 milliseconds
+https://www.ics.uci.edu/~kay/courses/i42/wildride/data/1000customers.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://www.ics.uci.edu/~pattis/quotations.html
+https://www.ics.uci.edu/~taylor/Publications.htm
+-david eppstein
+Elapsed Time: 13.64 milliseconds
+https://www.ics.uci.edu/~eppstein/bibs/eppstein.html
+https://www.ics.uci.edu/~eppstein/eppstein.html
+https://www.ics.uci.edu/~eppstein/pubs/pubs.ff
+https://www.ics.uci.edu/~eppstein/pubs/all.html
+https://www.ics.uci.edu/~eppstein/pubs/geom-all.html
+-pierre baldi
+Elapsed Time: 3.96 milliseconds
+https://www.ics.uci.edu/community/news/
+https://www.ics.uci.edu/community/news/index.php
+https://www.ics.uci.edu/community/news/notes/notes_2007.php
+https://www.ics.uci.edu/community/news/notes/notes_2011.php
+https://www.ics.uci.edu/faculty/area/index.php
+-cs 121
+Elapsed Time: 12.92 milliseconds
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+https://grape.ics.uci.edu/wiki/asterix/raw-attachment/wiki/cs122a-2019-spring/Homework5Dump.sql
+https://www.ics.uci.edu/~majumder/VC/211HW3/vlfeat/data/box.sift
+https://cbcl.ics.uci.edu/public_data/LRH-1/macs_lLRH_q5_mfold32_p-10_fdr1_FE10.txt
+https://cbcl.ics
+-cs 178
+Elapsed Time: 0.48 milliseconds
+https://sli.ics.uci.edu/Site/AllRecentChanges
+http://sli.ics.uci.edu/Classes/Classes
+http://sli.ics.uci.edu/pmwiki/pmwiki.php?n=Classes-CS178-Notes%2FClasses-CS178-Notes
+http://sli.ics.uci.edu/Classes-CS178-Notes/Classes-CS178-Notes
+http://sli.ics.uci.edu/Classes-CS178-Notes/Matlab-Classes
+-cs 161
+Elapsed Time: 4.11 milliseconds
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+http://flamingo.ics.uci.edu/releases/4.1/src/lbaktree/data/data.txt
+http://flamingo.ics.uci.edu/releases/4.0/src/lbaktree/data/data.txt
+https://cbcl.ics.uci.edu/public_data/shilab/forColleen/rMATs/colleen-hind-ctrl-KO-mm9/MATS_output/RI.MATS.ReadsOnTargetAndJunctionCounts_nameadded.txt
+https://cbcl.ics.uci.edu/public_data/shilab/forColleen/rMATs/colleen-hind-ctrl-KO-mm9/MATS_output/RI.MATS.ReadsOnTargetAndJunctionCounts.txt
+-infomatic 43
+Elapsed Time: 7.70 milliseconds
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+https://www.ics.uci.edu/~majumder/VC/211HW3/vlfeat/data/box.sift
+https://cbcl.ics.uci.edu/public_data/LRH-1/macs_lLRH_q5_mfold32_p-10_fdr1_FE10.txt
+https://cbcl.ics.uci.edu/public_data/shilab/forColleen/rMATs/colleen-cort-ctrl-KO-mm9/MATS_output/RI.MATS.ReadsOnTargetAndJunctionCounts_nameadded.txt
+https://cbcl.ics.uci.edu/public_data/shilab/forColleen/rMATs/colleen-cort-ctrl-KO-mm9/MATS_output/RI.MATS.ReadsOnTargetAndJunctionCounts.txt
+-computer science bachelors requirements
+Elapsed Time: 69.28 milliseconds
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://www.ics.uci.edu/~eppstein/bibs/kpath.bib
+https://www.ics.uci.edu/community/news/spotlight/index.php
+https://www.ics.uci.edu/community/news/spotlight/
+-graduate admissions
+Elapsed Time: 19.96 milliseconds
+https://www.ics.uci.edu/~redmiles/ics125-FQ01/adp.html
+https://mcs.ics.uci.edu/current-students/once-admitted/vv/
+https://mcs.ics.uci.edu/current-students/once-admitted/
+https://www.ics.uci.edu/grad/admissions/Prospective_ApplicationProcess.php
+https://mcs.ics.uci.edu/faq/#faq-career
+
+-master of software engineering
+Elapsed Time: 121.60 milliseconds
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://www.informatics.uci.edu/very-top-footer-menu-items/people/#Affiliated
+https://www.informatics.uci.edu/very-top-footer-menu-items/people/
+
+-how to apply to the phd program
+Elapsed Time: 122.30 milliseconds
+https://www.ics.uci.edu/~eppstein/bibs/kpath.bib
+https://cml.ics.uci.edu/category/aiml/page/2/#content
+https://cml.ics.uci.edu/category/aiml/page/2/
+https://cml.ics.uci.edu/category/aiml/
+
+-the
+Elapsed Time: 66.82 milliseconds
+https://www.ics.uci.edu/~dan/class/267P/datasets/calgary/book1
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://grape.ics.uci.edu/wiki/public/raw-attachment/wiki/cs221-2019-spring-project2/Team2StressTest.txt
+https://www.ics.uci.edu/~eppstein/bibs/kpath.bib
+
+-research
+Elapsed Time: 19.44 milliseconds
+https://www.ics.uci.edu/community/news/notes/notes_2009.php
+https://www.ics.uci.edu/community/news/notes/notes_2010.php
+https://www.ics.uci.edu/community/news/notes/notes_2007.php
+https://www.ics.uci.edu/~wscacchi/Papers/New/FOSSRRI-Scacchi-Gasser.html
+https://www.ics.uci.edu/faculty/index.php
+
+-ACM
+Elapsed Time: 6.81 milliseconds
+https://www.ics.uci.edu/~eppstein/pubs/pubs.ff
+https://www.ics.uci.edu/~eppstein/pubs/all.html
+https://www.ics.uci.edu/~kay/courses/131/s04readings.html
+https://www.ics.uci.edu/~eppstein/bibs/eppstein.html
+https://www.ics.uci.edu/~eppstein/pubs/geom-all.html
+
+-ICS student affairs
+Elapsed Time: 49.98 milliseconds
+https://www.ics.uci.edu/ugrad/index
+https://www.ics.uci.edu/ugrad/
+https://www.ics.uci.edu/ugrad/index.php
+https://www.cs.uci.edu/undergraduate-programs/
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+
+-UCI
+Elapsed Time: 35.85 milliseconds
+https://www.ics.uci.edu/~magda/Courses/ics156/Ch1_files/WS_FTP.LOG
+https://www.informatics.uci.edu/very-top-footer-menu-items/people/#Affiliated
+https://www.informatics.uci.edu/very-top-footer-menu-items/people/
+https://grape.ics.uci.edu/wiki/asterix/raw-attachment/wiki/cs122a-2019-spring/CompatibleHomework5Data.sql
+https://grape.ics.uci.edu/wiki/asterix/raw-attachment/wiki/cs122a-2019-spring/CompatibleHomework6Dump.sql
+
+-machine learning
+Elapsed Time: 28.96 milliseconds
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+https://cml.ics.uci.edu/category/aiml/page/2/#content
+https://cml.ics.uci.edu/category/aiml/page/2/
+https://cml.ics.uci.edu/category/aiml/
+https://cml.ics.uci.edu/category/aiml/#content
+
+-computer vision
+Elapsed Time: 54.83 milliseconds
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD-random.txt
+https://www.ics.uci.edu/~kay/courses/h22/hw/DVD.txt
+https://ngs.ics.uci.edu/list-of-publications/
+http://vision.ics.uci.edu/publications.html
+http://vision.ics.uci.edu/people/20.html
+
+-software engineering internship
+Elapsed Time: 37.19 milliseconds
+https://mswe.ics.uci.edu/faq/#faq-admissions
+https://mswe.ics.uci.edu/faq/
+http://mondego.ics.uci.edu/datasets/maven-contents.txt
+https://mswe.ics.uci.edu/program/curriculum/
+https://www.ics.uci.edu/community/news/notes/notes_2014.php
+
+-machne learning
+Elapsed Time: 18.91 milliseconds
+https://cml.ics.uci.edu/category/aiml/page/2/#content
+https://cml.ics.uci.edu/category/aiml/page/2/
+https://cml.ics.uci.edu/category/aiml/
+https://cml.ics.uci.edu/category/aiml/#content
+https://www.ics.uci.edu/~pazzani/Publications/OldPublications.html#1989
+
+-zzzzqqq
+Elapsed Time: 0.03 milliseconds
+No urls found
+
+-what are the requirements to transfer into the computer science major
+Elapsed Time: 228.58 milliseconds
+https://www.ics.uci.edu/~eppstein/bibs/kpath.bib
+https://www.ics.uci.edu/~dan/class/267P/datasets/calgary/news
+https://www.ics.uci.edu/~gbowker/classification/
+https://cml.ics.uci.edu/category/aiml/page/2/#content
+https://cml.ics.uci.edu/category/aiml/page/2/
