@@ -9,7 +9,6 @@ import heapq
 import os
 import time
 from itertools import groupby
-from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 from functools import wraps
 
@@ -18,9 +17,8 @@ STATS_FILE = "stats.json"
 INVERTED_INDEX_FILE = "inverted_index.jsonl"
 
 #Create a stemmer for stemming
-stemmer = PorterStemmer()
 
-def write_json(data, file_path):
+def write_file(data, file_path):
     """ Writes data to file_path """
     
     with open(file_path,encoding = "utf-8", mode='w') as file:
@@ -35,24 +33,6 @@ def load_json(file_path):
         data = json.load(file)
 
         return data
-
-def get_text_content(raw_HTML):
-    """
-    Given a raw_HTML, returns the string content
-    """
-
-    soup = BeautifulSoup(raw_HTML, "html.parser")
-
-    #Remove the script and style elements
-    for element in soup(["script", "style"]):
-        element.decompose()
-
-    #Get the text separated by words
-    content = soup.get_text(separator = " ")
-
-    #Return the content in readable format
-    return " ".join(content.split())
-
 def tokenize(text):
     """
     Given some text, tokenizes it and returns it
@@ -64,13 +44,6 @@ def tokenize(text):
     #Return the tokenized version only using alphanumeric characters
     return re.findall(r"[^\W_]+(?:'[^\W_]+)?", text)
 
-def stem(words):
-    """
-    Given a list of words, returns the stemmed version of each
-    word using the current stemmer
-    """
-
-    return [stemmer.stem(word) for word in words]
 
 def _read_single_line(file_path):
     """
