@@ -10,17 +10,19 @@ from helpers import *
 #Sets the maximum number of documents parsed through before the current index is uploaded
 BATCH_SIZE = 500
 
+DEV_FILE = "../DEV"
+
 @time_decorator
 def create_index_json():
     """
-    Main function for running the terminal interaction and interface
+    Creates the index for the pages in batches
     """
 
     #Don't mind the name, I just named it contenter since it grabs content
     contenter = ContentGenerator()
 
     #Create the generator
-    generator = contenter.generate_next_content("DEV")
+    generator = contenter.generate_next_content(DEV_FILE)
 
     #Create the indexer
     indexer = InvertedIndexer()
@@ -42,6 +44,8 @@ def create_index_json():
 
             #Index each each pair of document_ids and words
             for document_id, words in batch:
+                if document_id is None:
+                    continue
                 total_no_documents += 1
                 indexer.index(document_id, words)
 
