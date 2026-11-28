@@ -5,6 +5,7 @@ from helpers import load_json, tokenize, write_file
 from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 import simhash as sh
+from urllib.parse import urlparse, urljoin, urldefrag
 
 stemmer = PorterStemmer()
 NUM_HASH_BITS = 64             # hashes for simhash are 64 bits
@@ -50,10 +51,12 @@ class ContentGenerator:
                     raw_HTML = raw_json["content"]
 
                     #Increment the document_id
-                    self.document_list.append(raw_json["url"])                    
+                    base_url = raw_json["url"]
+                    base_url = urldefrag(base_url.strip())[0]
+                              
                     #Get the tokenized and stemmed content
 
-                    content = get_contents(raw_HTML)
+                    content,forward_links = get_contents(base_url,raw_HTML)
                     content = tokenize(content)
 
                     # near-word similarity.
@@ -69,19 +72,20 @@ class ContentGenerator:
                     content = stem(content)
                     #Return both the document id and text content
                     if is_duplicate:
-                        yield None, None
+                        yield None, None,None
                     else:
-                        yield document_id, content
+                        self.document_list.append(base_url)         
+                        yield document_id, content, forward_links
                         document_id += 1
 
-
-def get_contents(raw_HTML):
+def get_contents(base_url,raw_HTML):
     """
-    Given a raw_HTML, returns the string content
+    Given a raw_HTML, returns the string content, next_links
     """
-
     soup = BeautifulSoup(raw_HTML, "html.parser")
 
+    next_links = _get_all_links(base_url,soup)
+   
     #Remove the script and style elements
     for element in soup(["script", "style"]):
         element.decompose()
@@ -90,8 +94,20 @@ def get_contents(raw_HTML):
     content = soup.get_text(separator = " ")
 
     #Return the content in readable format
-    return " ".join(content.split())
+    return " ".join(content.split()),next_links
 
+def _get_all_links(base_url,soup)->list:
+    ''' Takes in url and soup object, returns all links in page'''
+    next_links = []
+    for anchor in soup.find_all('a', href=True):
+        try:
+            link = urldefrag(urljoin(base_url, anchor['href'].strip()))[0]
+            if urlparse(link).scheme not in ['http','https']:
+                continue
+        except ValueError:      # malformed href (e.g. bad IPv6 bracket host)
+            continue
+        next_links.append(link)
+    return next_links
 
 def stem(words):
     """

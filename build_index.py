@@ -10,9 +10,10 @@ from helpers import *
 #Sets the maximum number of documents parsed through before the current index is uploaded
 BATCH_SIZE = 500
 
-DEV_FILE = "../DEV"
+DEV_FILE = "ANALYST"
 
 @time_decorator
+@memory_decorator
 def create_index_json():
     """
     Creates the index for the pages in batches
@@ -43,17 +44,17 @@ def create_index_json():
                 break
 
             #Index each each pair of document_ids and words
-            for document_id, words in batch:
+            for document_id, words, forward_links in batch:
                 if document_id is None:
                     continue
                 total_no_documents += 1
-                indexer.index(document_id, words)
+                indexer.index(document_id, words,forward_links)
 
             #Get a file path to the temporary directory
-            file_path = os.path.join(batches, f"batch{batch_number}_index.jsonl")
-
+            inverted_index_path = os.path.join(batches, f"batch{batch_number}_index.jsonl")
+            links_path = os.path.join(batches, f"batch{batch_number}_links.jsonl")
             #Save the index
-            indexer.upload_index(file_path)
+            indexer.upload_index(inverted_index_path,links_path)
 
             #Optionally print out batch number for testing
             print(f"Finished batch {batch_number}")
@@ -63,8 +64,8 @@ def create_index_json():
 
         #Combine the indexes
         merge_batches(batches)
-        write_json(json.dumps([url for url in contenter.document_list]), DOC_ID_FILE)
-        write_json(f"Total no of documents: {total_no_documents}", STATS_FILE)
+        write_file(json.dumps([url for url in contenter.document_list]), DOC_ID_FILE)
+        write_file(f"Total no of documents: {total_no_documents}", STATS_FILE)
 
 
 #Safety check
