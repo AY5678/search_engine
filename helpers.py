@@ -16,6 +16,7 @@ import tracemalloc
 DOC_ID_FILE = "document_id.json"
 STATS_FILE = "stats.json"
 INVERTED_INDEX_FILE = "inverted_index.jsonl"
+OUTLINKS_FILE='outlinks.jsonl'
 
 #Create a stemmer for stemming
 
@@ -155,3 +156,8 @@ def memory_decorator(func):
             print(f"Peak: {peak / 1024**2:.2f} MB")
         return res
     return memory_wrapper
+
+
+def file_json_offset_seek(file_path,offset):
+    """ Reads a .jsonl file and returns a json object"""
+    return json.loads(file_path.seek(offset))
