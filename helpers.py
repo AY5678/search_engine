@@ -10,6 +10,7 @@ import os
 import time
 from itertools import groupby
 from bs4 import BeautifulSoup
+from nltk.stem import PorterStemmer
 from functools import wraps
 import tracemalloc
 
@@ -17,8 +18,19 @@ DOC_ID_FILE = "document_id.json"
 STATS_FILE = "stats.json"
 INVERTED_INDEX_FILE = "inverted_index.jsonl"
 OUTLINKS_FILE='outlinks.jsonl'
+OUTLINKS_MODIFIED_FILE='outlinks_modified.jsonl'
+PAGE_RANKS_FILE= 'page_ranks.txt'
+
 
 #Create a stemmer for stemming
+stemmer = PorterStemmer()
+
+def stem(words):
+    """
+    Given a list of words, returns the stemmed version of each
+    word using the current stemmer
+    """
+    return [stemmer.stem(word) for word in words]
 
 def write_file(data, file_path):
     """ Writes data to file_path """
@@ -160,4 +172,8 @@ def memory_decorator(func):
 
 def file_json_offset_seek(file_path,offset):
     """ Reads a .jsonl file and returns a json object"""
-    return json.loads(file_path.seek(offset))
+    with open(file_path, 'rb') as f:
+        pos = f.seek(offset)
+        line = f.readline()
+        data = json.loads(line)
+    return data

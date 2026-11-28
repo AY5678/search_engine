@@ -3,17 +3,22 @@
 
 import json
 import helpers as hp
+import pagerank as pr
 
-
-
-# def clean_outlinks():
-#     ''' Removes any links not in corpus'''
-#     outlinks_dict = create_index_offset(hp.OUTLINKS_FILE)
-#     all_relevant_links = set(hp.load_json(hp.DOC_ID_FILE))
-#     for offset in outlinks_dict.values():
-#         new_links = []
-#         for link in hp.file_json_offset_seek(offset)['links']:
-
+def clean_outlinks():
+    ''' Removes any links not in corpus and save it to outlinks file'''
+    # needed for pagerank
+    all_relevant_links = set(hp.load_json(hp.DOC_ID_FILE))
+    with open('outlinks.jsonl','r') as f:
+        with open('outlinks_modified.jsonl',"w", encoding="utf-8") as out:
+            tmp_path = out.name 
+            for line in f:
+                entry = json.loads(line)
+                new_links = []
+                for link in entry['links']:
+                    if link  in all_relevant_links:
+                        new_links.append(link)
+                out.write(json.dumps({'doc_id':entry['doc_id'],'links':new_links}) + '\n')
 
 @hp.memory_decorator
 def create_index_offset(file_path):
@@ -22,6 +27,13 @@ def create_index_offset(file_path):
     with open(file_path,'rb') as file:
         for line in file:
             entry = json.loads(line)
-            offset_dict[entry[0]] = offset
+            key = entry[next(iter(entry))]
+            offset_dict[key] = offset
             offset+=len(line)
     return offset_dict
+
+
+if __name__ == '__main__':
+    clean_outlinks()
+    pr.run()
+    

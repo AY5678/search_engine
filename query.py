@@ -3,7 +3,7 @@ import json
 from collections import namedtuple
 import math
 import heapq as hq
-from helpers import *
+import helpers as hp
 from post_index_creation import create_index_offset
 
 Posting = namedtuple("Posting", ['document_id','tf_score','frequency'])
@@ -19,7 +19,9 @@ def _get_document_frequencies(tokens):
     for tkn in tokens_set:
         if tkn not in word_offset_dict:
             continue
-        entry = file_json_offset_seek(inverted_file,word_offset_dict[tkn])
+        inverted_file.seek(word_offset_dict[tkn])
+        line = inverted_file.readline()
+        entry = json.loads(line)
         for posting in entry["documents"]:
             tokens_set[entry['word']].append(Posting(posting['document_id'],posting['tf_score'],posting['frequency']))
 
@@ -34,7 +36,6 @@ def _similar_document_ids(tokens):
     tokens_set = _get_document_frequencies(tokens)
     if not tokens_set:
         return []
-    
     documents_score = {}
     for _, documents in tokens_set.items():
         if len(documents) > 0:
@@ -47,14 +48,18 @@ def _similar_document_ids(tokens):
             document_id = posting.document_id
             if document_id not in documents_score:
                 documents_score[document_id] = 0 
-            weight = (1 + math.log(tf_score)) * idf
+            weight = ((1 + math.log(tf_score)) * idf)
             documents_score[document_id] +=weight
-
+    for doc_id, relevance in documents_score.items():
+        page_rank = pageranks.get(DOCUMENT_IDS[doc_id],0)
+        page_rank = math.log(1 + page_rank) / math.log(1 + max_page_rank)
+        documents_score[doc_id] += page_rank
     # Number of results we want to show
     k = 5
     return hq.nlargest(k, documents_score, key=documents_score.get)
 
-@time_decorator
+@hp.time_decorator
+@hp.memory_decorator
 def get_urls(tokens):
     """
     Gets the relevant document_ids' urls.
@@ -92,10 +97,12 @@ def run():
 
 if __name__ == '__main__':
     word_offset_dict = create_index_offset(hp.INVERTED_INDEX_FILE)
-    DOCUMENT_IDS = hp.load_json(DOC_ID_FILE)
+    pageranks = hp.load_json(hp.PAGE_RANKS_FILE)
+    max_page_rank = max(pageranks.values())
+    DOCUMENT_IDS = hp.load_json(hp.DOC_ID_FILE)
     NUMBER_OF_DOCUMENTS = 0
-    with open(STATS_FILE, 'r') as f:
+    with open(hp.STATS_FILE, 'r') as f:
         NUMBER_OF_DOCUMENTS = int(f.read().strip().split()[-1])
-    inverted_file = open(INVERTED_INDEX_FILE,'rb') 
+    inverted_file = open(hp.INVERTED_INDEX_FILE,'rb') 
     run()
     inverted_file.close()
