@@ -1,7 +1,7 @@
 #content_generator.py
 
 import os
-from helpers import load_json, tokenize, write_file
+from helpers import load_json, tokenize, write_file,stem
 from bs4 import BeautifulSoup
 import simhash as sh
 from urllib.parse import urlparse, urljoin, urldefrag

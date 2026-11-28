@@ -10,7 +10,7 @@ from helpers import *
 #Sets the maximum number of documents parsed through before the current index is uploaded
 BATCH_SIZE = 500
 
-DEV_FILE = "ANALYST"
+DEV_FILE = "DEV"
 
 @time_decorator
 @memory_decorator
