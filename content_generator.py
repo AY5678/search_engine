@@ -2,12 +2,10 @@
 
 import os
 from helpers import load_json, tokenize, write_file
-from nltk.stem import PorterStemmer
 from bs4 import BeautifulSoup
 import simhash as sh
 from urllib.parse import urlparse, urljoin, urldefrag
 
-stemmer = PorterStemmer()
 NUM_HASH_BITS = 64             # hashes for simhash are 64 bits
 
 STOP_WORDS = set("""a about above after again against all am an and any are aren't as at be because been before being below 
@@ -109,9 +107,3 @@ def _get_all_links(base_url,soup)->list:
         next_links.append(link)
     return next_links
 
-def stem(words):
-    """
-    Given a list of words, returns the stemmed version of each
-    word using the current stemmer
-    """
-    return [stemmer.stem(word) for word in words]
